@@ -17,7 +17,26 @@ const Modal = ({navigation}) => {
           <Text>{data._id}</Text>
           <Text>{data.name}</Text>
           <Text>{data.desc}</Text>
-          <Button title="Accept" onPress={() => {}} />
+          <Button
+            title="Accept"
+            onPress={() =>
+              fetch(`${API_URL.ORDERS}`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  meal_id: id,
+                  user_id: 'bleble',
+                }),
+              })
+                .then(() => {
+                  alert('Ordern fue generada con exito');
+                  navigation.navigate('Meals');
+                })
+                .catch(err => console.log(err))
+            }
+          />
           <Button title="Cancel" onPress={() => navigation.navigate('Meals')} />
         </View>
       )}
